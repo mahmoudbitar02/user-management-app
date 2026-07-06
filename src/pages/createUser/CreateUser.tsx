@@ -1,5 +1,11 @@
+import UserForm from "../../components/userForm/UserForm";
+
 function CreateUser() {
-  return <div>Hello from CreateUser</div>;
+  return (
+    <div>
+      <UserForm />
+    </div>
+  );
 }
 
 export default CreateUser;
