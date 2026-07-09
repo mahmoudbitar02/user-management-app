@@ -1,12 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/userContext";
+import type { User } from "../../types/Type";
 import "./user.scss";
 
 function Users() {
+  const navigate = useNavigate();
   const { users, dispatch } = useUserContext();
   console.log(users);
 
   function handleDeleteUser(id: string) {
     dispatch({ type: "DELETE_USER", payload: id });
+  }
+
+  function handleClick(user: User) {
+    console.log(user);
+    navigate(`/edit/${user.id}`);
   }
   return (
     <div>
@@ -15,7 +23,7 @@ function Users() {
       ) : (
         <ul className="users">
           {users.map((user) => (
-            <div className="user-card" key={user.id}>
+            <div className="user-card" key={user.id} onClick={() => handleClick(user)}>
               <button onClick={() => handleDeleteUser(user.id)} className="user-card__close">
                 ✕
               </button>

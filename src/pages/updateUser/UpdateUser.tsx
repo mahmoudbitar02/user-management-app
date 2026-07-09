@@ -1,5 +1,11 @@
+import UserForm from "../../components/userForm/UserForm";
+
 function UpdateUser() {
-  return <div>Hello from UpdateUser</div>;
+  return (
+    <div>
+      <UserForm />
+    </div>
+  );
 }
 
 export default UpdateUser;
