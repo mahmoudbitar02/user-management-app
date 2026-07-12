@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../inputField/InputField";
 import SelectField from "../selectField/SelectField";
 import "./userForm.scss";
@@ -8,8 +8,13 @@ import { useUserContext } from "../../hooks/userContext";
 
 function UserForm() {
   const [value, setValue] = useState<User>(initialValue);
+  const { selectedUser, dispatch } = useUserContext();
 
-  const { dispatch } = useUserContext();
+  useEffect(() => {
+    if (selectedUser) {
+      setValue(selectedUser);
+    }
+  }, [selectedUser]);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
@@ -17,8 +22,13 @@ function UserForm() {
   }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    dispatch({ type: "ADD_USER", payload: { ...value, id: crypto.randomUUID() } });
-    setValue(initialValue);
+    if (!selectedUser) {
+      dispatch({ type: "ADD_USER", payload: { ...value, id: crypto.randomUUID() } });
+      setValue(initialValue);
+    } else {
+      dispatch({ type: "UPDATE_USER", payload: value });
+      setValue(initialValue);
+    }
   }
 
   return (

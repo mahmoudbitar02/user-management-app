@@ -5,7 +5,8 @@ import "./user.scss";
 
 function Users() {
   const navigate = useNavigate();
-  const { users, dispatch } = useUserContext();
+  const { users, dispatch, selectedUser, setSelectedUser } = useUserContext();
+
   console.log(users);
 
   function handleDeleteUser(id: string) {
@@ -13,7 +14,11 @@ function Users() {
   }
 
   function handleClick(user: User) {
-    console.log(user);
+    setSelectedUser(user);
+
+    console.log(" User =", user);
+    console.log("selected User =", selectedUser);
+
     navigate(`/edit/${user.id}`);
   }
   return (
