@@ -9,7 +9,8 @@ function Users() {
 
   console.log(users);
 
-  function handleDeleteUser(id: string) {
+  function handleDeleteUser(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+    e.stopPropagation();
     dispatch({ type: "DELETE_USER", payload: id });
   }
 
@@ -29,7 +30,7 @@ function Users() {
         <ul className="users">
           {users.map((user) => (
             <div className="user-card" key={user.id} onClick={() => handleClick(user)}>
-              <button onClick={() => handleDeleteUser(user.id)} className="user-card__close">
+              <button onClick={(e) => handleDeleteUser(e, user.id)} className="user-card__close">
                 ✕
               </button>
               <div className="user-card__left">

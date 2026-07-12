@@ -5,14 +5,19 @@ import "./userForm.scss";
 import Button from "../button/Button";
 import { initialValue, type User } from "../../types/Type";
 import { useUserContext } from "../../hooks/userContext";
+import { useNavigate } from "react-router-dom";
 
 function UserForm() {
+  const navigate = useNavigate();
+
   const [value, setValue] = useState<User>(initialValue);
-  const { selectedUser, dispatch } = useUserContext();
+  const { selectedUser, setSelectedUser, dispatch } = useUserContext();
 
   useEffect(() => {
     if (selectedUser) {
       setValue(selectedUser);
+    } else {
+      setValue(initialValue);
     }
   }, [selectedUser]);
 
@@ -23,12 +28,14 @@ function UserForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!selectedUser) {
-      dispatch({ type: "ADD_USER", payload: { ...value, id: crypto.randomUUID() } });
       setValue(initialValue);
-    } else {
+      dispatch({ type: "ADD_USER", payload: { ...value, id: crypto.randomUUID() } });
+    } else if (selectedUser) {
       dispatch({ type: "UPDATE_USER", payload: value });
       setValue(initialValue);
+      setSelectedUser(null);
     }
+    navigate("/overview");
   }
 
   return (
@@ -88,7 +95,7 @@ function UserForm() {
         handleChange={handleInputChange}
         value={value.website}
       />
-      <Button />
+      <Button text={selectedUser ? "Update User" : "Create User"} />
     </form>
   );
 }

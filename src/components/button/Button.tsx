@@ -1,5 +1,9 @@
-function Button() {
-  return <button className="inputs__submit">Submit</button>;
+type ButtonProps = {
+  text: string;
+};
+
+function Button({ text }: ButtonProps) {
+  return <button className="inputs__submit">{text}</button>;
 }
 
 export default Button;
