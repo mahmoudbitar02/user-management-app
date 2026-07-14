@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import "./root.scss";
-import image from "../../assets/images/devKarriere.png";
+import image from "../../assets/images/devkarriere.png";
 
 function Root() {
   return (
