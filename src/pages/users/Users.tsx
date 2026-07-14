@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/userContext";
 import type { User } from "../../types/Type";
 import "./user.scss";
+import maleImage from "../../assets/images/male.png";
+import femaleImage from "../../assets/images/female.png";
 
 function Users() {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ function Users() {
               <div className="user-card__left">
                 <img
                   className="user-card__avatar"
-                  src={user.gender === "male" ? "/images/male.png" : "/images/female.png"}
+                  src={user.gender === "male" ? `${maleImage}` : `${femaleImage}`}
                   alt={`${user.username}'s image`}
                 />
               </div>
