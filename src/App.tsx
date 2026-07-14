@@ -5,26 +5,31 @@ import Root from "./pages/root/Root";
 import CreateUser from "./pages/createUser/CreateUser";
 import EditUser from "./pages/updateUser/UpdateUser";
 function App() {
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <Root />,
+        children: [
+          {
+            path: "overview",
+            element: <Users />,
+          },
+          {
+            path: "create",
+            element: <CreateUser />,
+          },
+          {
+            path: "edit/:userId",
+            element: <EditUser />,
+          },
+        ],
+      },
+    ],
     {
-      path: "/",
-      element: <Root />,
-      children: [
-        {
-          path: "overview",
-          element: <Users />,
-        },
-        {
-          path: "create",
-          element: <CreateUser />,
-        },
-        {
-          path: "edit/:userId",
-          element: <EditUser />,
-        },
-      ],
+      basename: "/user-management-app",
     },
-  ]);
+  );
   return (
     <>
       <RouterProvider router={router} />
